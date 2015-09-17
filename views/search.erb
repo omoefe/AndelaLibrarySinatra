@@ -1,0 +1,48 @@
+
+    <legend>Search For Book</legend>
+  <fieldset>
+  <a href="/logout">Log Out</a>
+  <div class="span4"></div>  <div  class="span4"></div>  <div  class="form-group">
+
+ <form method="get" action="/search">
+<br> <br>
+  <input type="text" placeholder="Enter Book Name" name="name" class="form-control" required="true">
+  <br/> <br/>
+  <select name="category" class="form-control">
+  <option value="Mathematics">Mathematics</option>
+  <option value="Physics">Physics</option>
+  <option value="Chemistry">Chemistry</option>
+  <option value="Biology">Biology</option>
+</select>
+  <br/> <br/>
+  <button type="submit" class="btn">Submit</button>
+
+</form>
+
+ </div>
+
+<table class="table table-striped">
+   <thead>
+   <tr>
+   <th>Book Name</th>
+      <th>No. Available</th>
+   <th>ISDN</th>
+      <th>Category</th>
+ </tr>
+ </thead>
+  <tbody>
+       <% @search_result.each do |book| %>
+  <tr>
+  
+    <td><%= book[:name]%></td>
+    <td><%= book[:no_available]%></td>
+    <td><%= book[:isdn_no]%></td>
+    <td><%= book[:category]%></td>
+    <td>  <a href="/update/<%= book[:id] %>" class="btn btn-danger">Borrow Book</a></td>
+
+  </tr>
+   <% end %>
+   </tbody>
+</table> 
+<p><b><%= @message %></b></p>
+</fieldset>

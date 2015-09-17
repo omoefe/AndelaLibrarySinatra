@@ -1,0 +1,33 @@
+<a href="/logout">Log Out</a>
+<br> 
+<br>  
+<b style="float: right">Welcome  <span style="color: navy"><%=  session[:name].to_s %></span>  </b>
+<br> <br><br>
+<h2>Top 10 Recently Added Books</h2>
+<table class="table table-striped">
+   <thead>
+   <tr>
+   <th>Book Name</th>
+      <th>No. Available</th>
+   <th>ISDN</th>
+   <th>Year</th>
+   <th>Author</th>  <th>Category</th>
+ </tr>
+ </thead>
+  <tbody>
+       <% @books.each do |book| %>
+  <tr>
+    <td><%= book[:name]%></td>
+    <td><%= book[:no_available]%></td>
+      <td><%= book[:isdn_no]%></td>
+        <td><%= book[:year]%></td>
+          <td><%= book[:author]%></td>
+<td><%= book[:category]%></td>
+   <td>  <a href="/delete/<%= book[:id] %>" class="btn btn-danger">Delete Book</a></td>
+  </tr>
+   <% end %>
+   </tbody>
+</table> 
+
+<a href="/new" class="btn btn-primary">Add New Book</a>
+<a href="/not_available" class="btn btn-primary"> Books Not Available</a>

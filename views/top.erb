@@ -1,0 +1,14 @@
+<ul id="todo-list" class="unstyled">
+  <% @books.each do |book| %>
+    <li id="<%= book[:id] %>">
+    <span class="item">
+      <%= book[:done] ? "<del>#{book[:name]}</del>" : book[:name] %>
+    </span>
+
+    <span class="pull-right">
+      <a href="#" class="btn done"><%= book[:done] ? "Not done" : "Done"%></a>
+    </span>
+    
+    </li>
+  <% end %>
+</ul>
