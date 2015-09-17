@@ -1,14 +1,30 @@
-<ul id="todo-list" class="unstyled">
-  <% @books.each do |book| %>
-    <li id="<%= book[:id] %>">
-    <span class="item">
-      <%= book[:done] ? "<del>#{book[:name]}</del>" : book[:name] %>
-    </span>
 
-    <span class="pull-right">
-      <a href="#" class="btn done"><%= book[:done] ? "Not done" : "Done"%></a>
-    </span>
-    
-    </li>
-  <% end %>
-</ul>
+<h2>Top 10 Recently Added Books</h2>
+<table class="table table-striped">
+   <thead>
+   <tr>
+   <th>Book Name</th>
+      <th>No. Available</th>
+   <th>ISDN</th>
+   <th>Year</th>
+   <th>Author</th>
+    <th>Category</th>
+ </tr>
+ </thead>
+  <tbody>
+       <% @books.each do |book| %>
+  <tr>
+  
+    <td><%= book[:name]%></td>
+    <td><%= book[:no_available]%></td>
+      <td><%= book[:isdn_no]%></td>
+        <td><%= book[:year]%></td>
+          <td><%= book[:author]%></td>
+          <td><%= book[:category]%></td>
+  </tr>
+   <% end %>
+   </tbody>
+</table> 
+
+<br/>
+<a href="/home" class="btn btn-primary">Back</a>
