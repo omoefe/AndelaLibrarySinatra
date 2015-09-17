@@ -146,26 +146,34 @@ end
 
 
 post "/signup" do
-  #password_salt = BCrypt::Engine.generate_salt
- # password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)  
-  #ideally this would be saved into a database, hash used just for sample
+          check_exist_email=User.count(:email => params[:email]) 
+          if (check_exist_email > 0)
+          @create_status="Email ID Already Exists"
+           erb :signup
+          elsif(check_exist_email == 0)
+            if (params[:role] == "Admin")
 
-check_exist_email=User.count(:email => params[:email]) 
-if (check_exist_email > 0)
-@create_status="Email ID Already Exists"
- erb :signup
-elsif(check_exist_email == 0)
-    User.create(:name => params[:name],:email => params[:email],:role =>params[:role],:password =>params[:password],:created => Time.now)
-  @create_status="user successfully created"
-   session[:username] = params[:email]
-   session[:name]=params[:name]
+                  if (params[:key] == "andela")
+                    User.create(:name => params[:name],:email => params[:email],:role =>params[:role],:password =>params[:password],:created => Time.now)
+                      @create_status="user successfully created"
+                      session[:username] = params[:email]
+                      session[:name]=params[:name]
+                      redirect '/admin_welcome'
+                  else
+                     @create_status="Invalid Authorization Code"
+                    erb :signup
+                  end
 
-   if (params[:role] == "Student")
-      redirect '/student_welcome'
-    elsif(params[:role] == "Admin")
-    redirect '/admin_welcome'
-   end
-end
+            elsif(params[:role] == "Student")
+            User.create(:name => params[:name],:email => params[:email],:role =>params[:role],:password =>params[:password],:created => Time.now)
+            @create_status="user successfully created"
+             session[:username] = params[:email]
+             session[:name]=params[:name]
+            redirect '/student_welcome'
+             
+            end
+            
+          end
 
 
 
